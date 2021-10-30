@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
          android:text="Welcome back"
         android:textAlignment="center"
-        android:textSize="40sp"
+        android:textSize="35sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         />
@@ -66,7 +66,7 @@
         android:layout_marginTop="15dp"
         android:hint="Password"
         android:drawablePadding="12dp"
-        android:drawableStart="@drawable/ic_baseline_remove_red_eye_24"
+        android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
         android:textSize="18sp"
         />
 
@@ -74,7 +74,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_marginTop="04dp"
+       android:layout_marginTop="40dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="@drawable/button_background"

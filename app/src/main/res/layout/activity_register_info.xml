@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="BMI Analyzer"
+        android:textSize="22sp"
+        android:padding="12dp"
+        android:layout_alignParentTop="true"
+        android:textColor="@android:color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Complete Your Information"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/colorPrimary"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="12dp"
+            android:weightSum="2"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Gender"
+                android:paddingStart="30dp"
+                />
+
+            <RadioGroup
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:buttonTint="@color/colorPrimary"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:layout_marginStart="8dp"
+                    android:buttonTint="@color/colorPrimary"/>
+            </RadioGroup>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="12dp"
+            android:weightSum="2"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Weight"
+                android:paddingStart="30dp"
+                />
+            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                android:id="@+id/weight"
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:layout_height="30dp"
+                android:elevation="10dp"
+                android:textSize="22sp"
+                app:backGroundColor="#348A9BF4"
+                app:textColor="@android:color/black"
+                >
+            </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:textSize="16sp"
+                android:paddingStart="12dp"
+                android:text="kg"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="12dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Length"
+                android:paddingStart="30dp"
+                />
+            <com.cepheuen.elegantnumberbutton.view.ElegantNumberButton
+                android:id="@+id/quantity"
+                android:layout_width="0dp"
+                android:layout_weight="0.7"
+                android:layout_height="30dp"
+                android:elevation="10dp"
+                android:textSize="22sp"
+                app:backGroundColor="#348A9BF4"
+                app:textColor="@android:color/black"
+                >
+            </com.cepheuen.elegantnumberbutton.view.ElegantNumberButton>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:textSize="16sp"
+                android:paddingStart="12dp"
+                android:text="cm"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="12dp"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Date of birth"
+                android:paddingStart="30dp"
+                />
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:padding="4dp"
+                android:background="@drawable/text_background"
+                android:inputType="date" />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/sign_up_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/colorPrimary"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:text="Save Data"
+            android:textColor="@android:color/white"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
