@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
+
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="BMI Analyzer"
+        android:textSize="22sp"
+        android:textAlignment="center"
+        android:padding="12dp"
+
+        android:textColor="@android:color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hi, Nour "
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Current status "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:textColor="@color/colorPrimary"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Normal (still good) "
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:padding="12dp"
+        android:background="@drawable/button_background"
+        android:textStyle="bold"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Old status "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="12dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorPrimary"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="8dp"
+        >
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/colorPrimary"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:text="Add Food"
+            android:layout_margin="4dp"
+            android:textColor="@android:color/white"
+            />
+        <Button
+            android:id="@+id/back_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/button_background"
+            android:backgroundTint="@color/colorPrimary"
+            android:padding="12dp"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:text="Add Record"
+            android:layout_margin="4dp"
+            android:textColor="@android:color/white"
+            />
+    </LinearLayout>
+
+    <Button
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:background="@drawable/button_background"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="12dp"
+        android:textSize="18sp"
+        android:textAllCaps="false"
+        android:text="View Food"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:textColor="@android:color/white"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:textSize="20sp"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        />
+</LinearLayout>
