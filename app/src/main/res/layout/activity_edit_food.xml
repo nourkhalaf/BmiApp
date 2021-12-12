@@ -26,7 +26,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Food Details"
+            android:text="Edit Food Details"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -84,7 +84,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                />
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
         <LinearLayout
@@ -126,7 +126,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:textSize="18sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:text="Photo"
             android:paddingStart="42dp"
@@ -149,7 +149,7 @@
                 android:id="@+id/save_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:background="@drawable/button_background"
+                android:background="@drawable/button_background"
                 android:backgroundTint="@color/colorPrimary"
                 android:padding="12dp"
                 android:textSize="18sp"
