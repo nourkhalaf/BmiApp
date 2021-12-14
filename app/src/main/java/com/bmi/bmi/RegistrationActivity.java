@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 public class RegistrationActivity extends AppCompatActivity {
     private EditText name, email, password, rePassword;
     private Button registerBtn;
+    private TextView login;
     private ProgressDialog loadingBar;
     private DatabaseReference UsersRef;
 
@@ -51,8 +53,17 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 checkInfo();
-
              }
+        });
+
+        login = findViewById(R.id.login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                finish();
+                startActivity(intent);
+                            }
         });
     }
 
