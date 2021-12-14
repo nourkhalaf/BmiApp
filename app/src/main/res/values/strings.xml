@@ -100,4 +100,5 @@
     <string name="toast_register_successfully">Register Successfully</string>
     <string name="toast_check_password">Check your password!</string>
     <string name="toast_login_not_found">Account not found!</string>
+    <string name="toast_add_dob">Enter your DOB!</string>
 </resources>

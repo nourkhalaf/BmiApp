@@ -142,6 +142,10 @@ public class RegistrationActivity extends AppCompatActivity {
                         {
                             loadingBar.dismiss();
                             Toast.makeText(RegistrationActivity.this, getString(R.string.toast_register_successfully) , Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(RegistrationActivity.this, CompleteInfoActivity.class);
+                            finish();
+                            startActivity(intent);
                         }
                         else
                         {
