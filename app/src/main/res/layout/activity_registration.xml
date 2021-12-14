@@ -43,7 +43,7 @@
             />
 
         <EditText
-            android:id="@+id/sign_up_user_name"
+            android:id="@+id/registration_user_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
@@ -57,7 +57,7 @@
 
 
         <EditText
-            android:id="@+id/in_up_user_email"
+            android:id="@+id/registration_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
@@ -70,7 +70,7 @@
             />
 
         <EditText
-            android:id="@+id/sign_up_user_password"
+            android:id="@+id/registration_user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
@@ -84,7 +84,7 @@
             android:textSize="18sp"
             />
         <EditText
-            android:id="@+id/sign_up_user_re_password"
+            android:id="@+id/registration_user_re_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_background"
@@ -97,7 +97,7 @@
             />
 
         <Button
-            android:id="@+id/sign_up_btn"
+            android:id="@+id/registration_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
