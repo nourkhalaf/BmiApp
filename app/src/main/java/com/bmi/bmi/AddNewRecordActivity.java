@@ -76,7 +76,7 @@ public class AddNewRecordActivity extends AppCompatActivity {
             itemMap.put("time", recordTime);
             itemMap.put("status", bmiStatus);
 
-            RecordsRef.child(UserPrevalent.currentUser.getEmail()).updateChildren(itemMap)
+            RecordsRef.child(UserPrevalent.email).updateChildren(itemMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task)
