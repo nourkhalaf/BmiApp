@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bmi.bmi.Model.User;
+import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -106,6 +107,7 @@ public class LoginActivity extends AppCompatActivity {
                             loadingBar.dismiss();
                             Toast.makeText(LoginActivity.this,getString(R.string.toast_login_success), Toast.LENGTH_SHORT).show();
 
+                            UserPrevalent.email = userEmail;
                             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                             startActivity(intent);
                             finish();

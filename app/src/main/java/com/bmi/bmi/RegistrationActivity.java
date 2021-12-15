@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -125,7 +126,7 @@ public class RegistrationActivity extends AppCompatActivity {
         }
     }
 
-    private void registerAccount(String userName,  String userEmail, String userPassword)
+    private void registerAccount(String userName, final String userEmail, String userPassword)
     {
         HashMap<String, Object> itemMap = new HashMap<>();
         itemMap.put("name", userName);
@@ -143,6 +144,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             loadingBar.dismiss();
                             Toast.makeText(RegistrationActivity.this, getString(R.string.toast_register_successfully) , Toast.LENGTH_SHORT).show();
 
+                            UserPrevalent.email = userEmail;
                             Intent intent = new Intent(RegistrationActivity.this, CompleteInfoActivity.class);
                             finish();
                             startActivity(intent);

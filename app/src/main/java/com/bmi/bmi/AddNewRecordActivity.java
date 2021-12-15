@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -64,13 +65,18 @@ public class AddNewRecordActivity extends AppCompatActivity {
         }
         else
         {
+
+
+            String bmiStatus = CalculateBMI.CalcBMI(weight.getNumber(),length.getNumber());
+
             HashMap<String, Object> itemMap = new HashMap<>();
             itemMap.put("weight", weight.getNumber());
             itemMap.put("length", length.getNumber());
             itemMap.put("date", recordDate);
             itemMap.put("time", recordTime);
+            itemMap.put("status", bmiStatus);
 
-            RecordsRef.child("userEmail").updateChildren(itemMap)
+            RecordsRef.child(UserPrevalent.currentUser.getEmail()).updateChildren(itemMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task)
