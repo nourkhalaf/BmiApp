@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
@@ -18,6 +19,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
     private ElegantNumberButton weight, length;
     private EditText DOB;
     private Button saveBtn;
+    private String gender;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,37 @@ public class CompleteInfoActivity extends AppCompatActivity {
         }
         else
         {
+            String[] items1 = dateOfBirth.split("/");
+            String d1=items1[0];
+            String m1=items1[1];
+            String y1=items1[2];
+            int d = Integer.parseInt(d1);
+            int m = Integer.parseInt(m1);
+            int y = Integer.parseInt(y1);
+
+            String age = getAge(y,m,d);
+
+
+
          }
+    }
+
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.male_radio_btn:
+                if (checked)
+                    gender = "male";
+                    break;
+
+            case R.id.female_radio_btn:
+                if (checked)
+                    gender = "female";
+                    break;
+        }
     }
 
     private String getAge(int year, int month, int day){
