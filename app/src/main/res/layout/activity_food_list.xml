@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="BMI Analyzer"
+        android:textSize="22sp"
+        android:padding="12dp"
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:textColor="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/food_list_back_icon"
+        android:layout_width="50dp"
+        android:layout_height="52dp"
+        android:src="@drawable/ic_baseline_keyboard_backspace_24"/>
+
+    <TextView
+        android:id="@+id/food_list_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Food List"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/food_list_back_icon"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        android:textColor="@color/colorPrimary"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/food_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/food_list_title"
+        android:padding="8dp"
+        />
+</RelativeLayout>

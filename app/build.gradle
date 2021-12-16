@@ -41,4 +41,7 @@ dependencies {
 
     //Elegant-number-button
     implementation 'com.cepheuen.elegant-number-button:lib:1.0.3'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
