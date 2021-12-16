@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 
 import java.util.Calendar;
@@ -57,10 +58,29 @@ public class CompleteInfoActivity extends AppCompatActivity {
             int y = Integer.parseInt(y1);
 
             String age = getAge(y,m,d);
-
+            calcAgePercent(age);
 
 
          }
+    }
+
+    private void calcAgePercent(String age) {
+        int userAge = Integer.parseInt(age);
+        if(userAge >=2 && userAge<=10)
+        {
+            UserPrevalent.agePercent = 70;
+        }
+        else if(userAge >10 && userAge<=20)
+        {
+            if (gender.equals("male"))
+                UserPrevalent.agePercent = 90;
+            else if (gender.equals("female"))
+                UserPrevalent.agePercent = 80;
+        }
+        else if(userAge >20)
+        {
+            UserPrevalent.agePercent = 100;
+        }
     }
 
     public void onRadioButtonClicked(View view) {
