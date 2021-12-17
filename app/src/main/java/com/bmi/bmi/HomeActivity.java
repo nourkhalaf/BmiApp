@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bmi.bmi.Model.Record;
@@ -23,8 +24,12 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -32,6 +37,9 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     private Button addFoodBtn, addRecordBtn, viewFoodBtn;
+    private TextView currentStatus;
+
+    private String status1, status2, bmi1, bmi2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +48,7 @@ public class HomeActivity extends AppCompatActivity {
 
         RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records").child(UserPrevalent.email);
 
+        currentStatus = findViewById(R.id.current_state);
 
         addFoodBtn = findViewById(R.id.home_add_food_btn);
         addFoodBtn.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +119,40 @@ public class HomeActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+
+        Query lastQuery = RecordsRef.orderByKey().limitToLast(1);
+        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                status1 = dataSnapshot.child("status").getValue().toString();
+                bmi1 = dataSnapshot.child("bmi").getValue().toString();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle possible errors.
+            }
+        });
+
+        Query lastQuery2 = RecordsRef.orderByKey().limitToLast(2);
+        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                status2 = dataSnapshot.child("status").getValue().toString();
+                bmi2 = dataSnapshot.child("bmi").getValue().toString();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle possible errors.
+            }
+        });
+
+        String status = CalculateBMI.calcCurrentStatus(status1,bmi1,bmi2);
+        currentStatus.setText(status1+" ( "+status+" )");
+
     }
 
 

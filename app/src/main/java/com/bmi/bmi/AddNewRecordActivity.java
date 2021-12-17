@@ -67,7 +67,8 @@ public class AddNewRecordActivity extends AppCompatActivity {
         {
 
 
-            String bmiStatus = CalculateBMI.CalcBMI(weight.getNumber(),length.getNumber());
+            double bmi = CalculateBMI.CalcBMI(weight.getNumber(),length.getNumber());
+            String bmiStatus = CalculateBMI.CalcBMIStatus(bmi);
 
             HashMap<String, Object> itemMap = new HashMap<>();
             itemMap.put("weight", weight.getNumber());
@@ -75,6 +76,7 @@ public class AddNewRecordActivity extends AppCompatActivity {
             itemMap.put("date", recordDate);
             itemMap.put("time", recordTime);
             itemMap.put("status", bmiStatus);
+            itemMap.put("bmi", String.valueOf(bmi));
 
             RecordsRef.child(UserPrevalent.email).updateChildren(itemMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {

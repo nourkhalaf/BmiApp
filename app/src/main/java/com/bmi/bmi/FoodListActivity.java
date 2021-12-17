@@ -59,7 +59,7 @@ public class FoodListActivity extends AppCompatActivity {
                     protected void onBindViewHolder(@androidx.annotation.NonNull FoodViewHolder holder, int position, @androidx.annotation.NonNull final Food model) {
                         holder.name.setText(model.getName());
                         holder.category.setText(model.getCategory());
-                        holder.calories.setText(model.getCalories());
+                        holder.calories.setText(model.getCalories()+" cal/g");
                         Picasso.get().load(model.getImage()).into(holder.image);
                         
                         holder.edit.setOnClickListener(new View.OnClickListener() {
