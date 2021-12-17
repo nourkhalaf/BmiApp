@@ -37,7 +37,7 @@ import java.util.List;
 
 public class AddFoodDetailsActivity extends AppCompatActivity {
 
-    private String Name, Calories, Category;
+    private String Name, Calories, Category, CategoryId;
     private String productRandomKey, saveCurrentDate, saveCurrentTime, downloadImageUrl;
     private EditText name, calories;
     private Button saveBtn, uploadPhotoBtn;
@@ -83,6 +83,7 @@ public class AddFoodDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Category = categories.getSelectedItem().toString();
+                CategoryId  = String.valueOf(position);
             }
 
             @Override
@@ -237,6 +238,7 @@ public class AddFoodDetailsActivity extends AppCompatActivity {
         itemMap.put("name", Name);
         itemMap.put("calories", Calories);
         itemMap.put("category", Category);
+        itemMap.put("categoryId", CategoryId);
 
 
 
