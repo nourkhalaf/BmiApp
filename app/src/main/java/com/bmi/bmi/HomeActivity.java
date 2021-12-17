@@ -150,8 +150,12 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        if(!bmi2.isEmpty()){
         String status = CalculateBMI.calcCurrentStatus(status1,bmi1,bmi2);
-        currentStatus.setText(status1+" ( "+status+" )");
+        currentStatus.setText(status1+" ( "+status+" )");}
+        else {
+            currentStatus.setText(status1);
+        }
 
     }
 

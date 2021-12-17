@@ -1,5 +1,6 @@
 package com.bmi.bmi;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,8 +13,14 @@ import android.widget.Toast;
 
 import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class CompleteInfoActivity extends AppCompatActivity {
 
@@ -21,10 +28,14 @@ public class CompleteInfoActivity extends AppCompatActivity {
     private EditText DOB;
     private Button saveBtn;
     private String gender;
+    private DatabaseReference RecordsRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_info);
+
+        RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records");
 
 
         weight = findViewById(R.id.complete_info_weight);
@@ -60,8 +71,44 @@ public class CompleteInfoActivity extends AppCompatActivity {
             String age = getAge(y,m,d);
             calcAgePercent(age);
 
+            saveDataToDatabase();
 
          }
+    }
+
+    private void saveDataToDatabase() {
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        String recordDate = currentDate.format(calendar.getTime());
+
+
+        double bmi = CalculateBMI.CalcBMI(weight.getNumber(),length.getNumber());
+        String bmiStatus = CalculateBMI.CalcBMIStatus(bmi);
+
+        HashMap<String, Object> itemMap = new HashMap<>();
+        itemMap.put("weight", weight.getNumber());
+        itemMap.put("length", length.getNumber());
+        itemMap.put("date", recordDate);
+        itemMap.put("status", bmiStatus);
+        itemMap.put("bmi", String.valueOf(bmi));
+
+        RecordsRef.child(UserPrevalent.email).updateChildren(itemMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+                });
+
     }
 
     private void calcAgePercent(String age) {
