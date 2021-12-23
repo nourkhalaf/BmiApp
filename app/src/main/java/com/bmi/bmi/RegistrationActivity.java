@@ -62,9 +62,9 @@ public class RegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
-                finish();
                 startActivity(intent);
-                            }
+                finish();
+            }
         });
     }
 
@@ -105,7 +105,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot)
                 {
-                    if (dataSnapshot.child(userEmail).exists())
+                    if (dataSnapshot.child(userName).exists())
                     {
                         loadingBar.dismiss();
                         Toast.makeText(RegistrationActivity.this, getString(R.string.toast_account_found), Toast.LENGTH_SHORT).show();
@@ -134,7 +134,7 @@ public class RegistrationActivity extends AppCompatActivity {
         itemMap.put("password", userPassword);
 
 
-        UsersRef.child(userEmail).updateChildren(itemMap)
+        UsersRef.child(userName).updateChildren(itemMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)
@@ -144,7 +144,7 @@ public class RegistrationActivity extends AppCompatActivity {
                             loadingBar.dismiss();
                             Toast.makeText(RegistrationActivity.this, getString(R.string.toast_register_successfully) , Toast.LENGTH_SHORT).show();
 
-                            UserPrevalent.email = userEmail;
+                            UserPrevalent.name = userName;
                             Intent intent = new Intent(RegistrationActivity.this, CompleteInfoActivity.class);
                             finish();
                             startActivity(intent);

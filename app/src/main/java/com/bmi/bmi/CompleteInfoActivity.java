@@ -3,6 +3,8 @@ package com.bmi.bmi;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -29,6 +31,8 @@ public class CompleteInfoActivity extends AppCompatActivity {
     private Button saveBtn;
     private String gender;
     private DatabaseReference RecordsRef;
+    private ProgressDialog loadingBar;
+    private String randomKey, saveCurrentDate, saveCurrentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class CompleteInfoActivity extends AppCompatActivity {
 
         RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records");
 
+        loadingBar = new ProgressDialog(this);
 
         weight = findViewById(R.id.complete_info_weight);
         length = findViewById(R.id.complete_info_length);
@@ -60,6 +65,10 @@ public class CompleteInfoActivity extends AppCompatActivity {
         }
         else
         {
+            loadingBar.setTitle(getString(R.string.loading_add_product_title));
+            loadingBar.setMessage(getString(R.string.loading_add_product_message) );
+            loadingBar.setCanceledOnTouchOutside(false);
+            loadingBar.show();
             String[] items1 = dateOfBirth.split("/");
             String d1=items1[0];
             String m1=items1[1];
@@ -77,33 +86,44 @@ public class CompleteInfoActivity extends AppCompatActivity {
     }
 
     private void saveDataToDatabase() {
-        Calendar calendar = Calendar.getInstance();
-
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-        String recordDate = currentDate.format(calendar.getTime());
-
 
         double bmi = CalculateBMI.CalcBMI(weight.getNumber(),length.getNumber());
         String bmiStatus = CalculateBMI.CalcBMIStatus(bmi);
 
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+        saveCurrentTime = currentTime.format(calendar.getTime());
+
+        randomKey = saveCurrentDate + saveCurrentTime;
+
+
         HashMap<String, Object> itemMap = new HashMap<>();
+        itemMap.put("id", randomKey);
         itemMap.put("weight", weight.getNumber());
         itemMap.put("length", length.getNumber());
-        itemMap.put("date", recordDate);
+        itemMap.put("date", saveCurrentDate);
         itemMap.put("status", bmiStatus);
         itemMap.put("bmi", String.valueOf(bmi));
 
-        RecordsRef.child(UserPrevalent.email).updateChildren(itemMap)
+        RecordsRef.child(UserPrevalent.name).child(randomKey).updateChildren(itemMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)
                     {
                         if (task.isSuccessful())
                         {
+                            loadingBar.dismiss();
+                            Intent intent = new Intent(CompleteInfoActivity.this, HomeActivity.class);
+                            startActivity(intent);
 
                         }
                         else
                         {
+                            loadingBar.dismiss();
 
                         }
                     }

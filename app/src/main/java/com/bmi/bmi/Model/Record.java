@@ -1,9 +1,17 @@
 package com.bmi.bmi.Model;
 
 public class Record {
-    public String weight, length, status, date, time;
+    public String weight, length, status, date, time, bmi;
 
     public Record() {
+    }
+
+    public String getBmi() {
+        return bmi;
+    }
+
+    public void setBmi(String bmi) {
+        this.bmi = bmi;
     }
 
     public String getWeight() {

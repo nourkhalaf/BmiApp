@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginActivity"
+    android:layoutDirection="ltr"
     >
     <TextView
         android:layout_width="match_parent"
@@ -60,7 +61,7 @@
                 android:ems="10"
                 android:padding="4dp"
                 android:background="@drawable/text_background"
-                android:inputType="date" />
+                />
 
         </LinearLayout>
         <LinearLayout

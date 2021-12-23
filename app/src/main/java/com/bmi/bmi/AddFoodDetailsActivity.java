@@ -242,7 +242,7 @@ public class AddFoodDetailsActivity extends AppCompatActivity {
 
 
 
-        FoodsRef.child(UserPrevalent.email).child(productRandomKey).updateChildren(itemMap)
+        FoodsRef.child(UserPrevalent.name).child(productRandomKey).updateChildren(itemMap)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)

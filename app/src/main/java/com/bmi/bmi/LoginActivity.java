@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText email, password;
+    private EditText name, password;
     private Button loginBtn;
     private TextView register;
     private ProgressDialog loadingBar;
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         loadingBar = new ProgressDialog(this);
 
 
-        email = findViewById(R.id.login_user_email);
+        name = findViewById(R.id.login_user_name);
         password = findViewById(R.id.login_user_password);
 
         loginBtn = findViewById(R.id.login_btn);
@@ -66,12 +66,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void checkInfo() {
 
-        final String userEmail = email.getText().toString();
+        final String userName = name.getText().toString();
         final String userPassword = password.getText().toString();
 
-        if (TextUtils.isEmpty(userEmail))
+        if (TextUtils.isEmpty(userName))
         {
-            Toast.makeText(this, getString(R.string.toast_add_email), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_add_name), Toast.LENGTH_SHORT).show();
         }
         else if (TextUtils.isEmpty(userPassword))
         {
@@ -85,30 +85,30 @@ public class LoginActivity extends AppCompatActivity {
             loadingBar.show();
 
 
-            allowAccess(userEmail,userPassword);
+            allowAccess(userName,userPassword);
 
         }
     }
 
-    private void allowAccess(final String userEmail, final String userPassword) {
+    private void allowAccess(final String userName, final String userPassword) {
        UsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot)
             {
-                if (dataSnapshot.child(userEmail).exists())
+                if (dataSnapshot.child(userName).exists())
                 {
-                   User userData = dataSnapshot.child(userEmail).getValue(User.class);
+                   User userData = dataSnapshot.child(userName).getValue(User.class);
 
                     assert userData != null;
-                    if (userData.getEmail().equals(userEmail))
+                    if (userData.getName().equals(userName))
                     {
                         if (userData.getPassword().equals(userPassword))
                         {
                             loadingBar.dismiss();
                             Toast.makeText(LoginActivity.this,getString(R.string.toast_login_success), Toast.LENGTH_SHORT).show();
 
-                            UserPrevalent.email = userEmail;
-                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                            UserPrevalent.name = userName;
+                            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                             startActivity(intent);
                             finish();
 

@@ -30,7 +30,7 @@
     <string name="loading_register">Creating Account</string>
     <string name="loading_register_message">Please wait...</string>
     <string name="toast_login_wrong_password">Wrong password!</string>
-    <string name="toast_account_found">This email already have an account!</string>
+    <string name="toast_account_found">This user name already have an account!</string>
     <string name="toast_login_success">Welcome, Login successfully!</string>
     <string name="model_name">Model name</string>
     <string name="loading_add_model">Add New Model</string>
@@ -103,4 +103,5 @@
     <string name="toast_add_dob">Enter your DOB!</string>
     <string name="toast_add_date">Enter date!</string>
     <string name="toast_add_time">Enter time!</string>
+    <string name="toast_add_record">Record added successfully!</string>
 </resources>

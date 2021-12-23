@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginActivity"
+    android:layoutDirection="ltr"
+
     >
     <TextView
         android:layout_width="match_parent"
@@ -68,6 +70,8 @@
                 android:layout_height="30dp"
                 android:elevation="10dp"
                 android:textSize="22sp"
+                app:initialNumber="40"
+                app:finalNumber="200"
                 app:backGroundColor="#348A9BF4"
                 app:textColor="@android:color/black"
                 >
@@ -104,6 +108,8 @@
                 android:layout_height="30dp"
                 android:elevation="10dp"
                 android:textSize="22sp"
+                app:initialNumber="150"
+                app:finalNumber="200"
                 app:backGroundColor="#348A9BF4"
                 app:textColor="@android:color/black"
                 >
@@ -173,7 +179,7 @@
                 android:padding="4dp"
                 android:layout_marginEnd="30dp"
                 android:background="@drawable/text_background"
-                android:inputType="date" />
+                android:inputType="time" />
 
         </LinearLayout>
 

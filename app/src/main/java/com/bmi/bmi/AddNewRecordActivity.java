@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class AddNewRecordActivity extends AppCompatActivity {
@@ -26,7 +28,7 @@ public class AddNewRecordActivity extends AppCompatActivity {
     private EditText date, time;
     private Button saveBtn;
     private DatabaseReference RecordsRef;
-
+    private String randomKey, saveCurrentDate, saveCurrentTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +72,18 @@ public class AddNewRecordActivity extends AppCompatActivity {
             double bmi = CalculateBMI.CalcBMI(weight.getNumber(),length.getNumber());
             String bmiStatus = CalculateBMI.CalcBMIStatus(bmi);
 
+            Calendar calendar = Calendar.getInstance();
+
+            SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+            saveCurrentDate = currentDate.format(calendar.getTime());
+
+            SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+            saveCurrentTime = currentTime.format(calendar.getTime());
+
+            randomKey = saveCurrentDate + saveCurrentTime;
+
             HashMap<String, Object> itemMap = new HashMap<>();
+            itemMap.put("id", randomKey);
             itemMap.put("weight", weight.getNumber());
             itemMap.put("length", length.getNumber());
             itemMap.put("date", recordDate);
@@ -78,13 +91,19 @@ public class AddNewRecordActivity extends AppCompatActivity {
             itemMap.put("status", bmiStatus);
             itemMap.put("bmi", String.valueOf(bmi));
 
-            RecordsRef.child(UserPrevalent.email).updateChildren(itemMap)
+            RecordsRef.child(UserPrevalent.name).child(randomKey).updateChildren(itemMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task)
                         {
                             if (task.isSuccessful())
                             {
+                                Toast.makeText(AddNewRecordActivity.this, getString(R.string.toast_add_record),Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(AddNewRecordActivity.this,HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+
 
                             }
                             else

@@ -58,7 +58,7 @@ public class EditFoodActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_food);
 
         foodId = getIntent().getStringExtra("foodId");
-        FoodsRef = FirebaseDatabase.getInstance().getReference().child("Foods").child(UserPrevalent.email).child(foodId);
+        FoodsRef = FirebaseDatabase.getInstance().getReference().child("Foods").child(UserPrevalent.name).child(foodId);
 
         loadingBar = new ProgressDialog(this);
 

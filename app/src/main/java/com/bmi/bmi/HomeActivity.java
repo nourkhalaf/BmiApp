@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bmi.bmi.Model.Food;
 import com.bmi.bmi.Model.Record;
 import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.bmi.bmi.ViewHolder.RecordViewHolder;
@@ -31,6 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class HomeActivity extends AppCompatActivity {
 
     private DatabaseReference RecordsRef;
@@ -39,14 +44,14 @@ public class HomeActivity extends AppCompatActivity {
     private Button addFoodBtn, addRecordBtn, viewFoodBtn;
     private TextView currentStatus;
 
-    private String status1, status2, bmi1, bmi2;
+    private String status1="", bmi1="", bmi2="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records").child(UserPrevalent.email);
+        RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records").child(UserPrevalent.name);
 
         currentStatus = findViewById(R.id.current_state);
 
@@ -65,6 +70,8 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this,AddNewRecordActivity.class);
                 startActivity(intent);
+
+
             }
         });
 
@@ -72,6 +79,8 @@ public class HomeActivity extends AppCompatActivity {
         viewFoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, FoodListActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -88,6 +97,9 @@ public class HomeActivity extends AppCompatActivity {
     {
         super.onStart();
 
+        final ArrayList<Record> list = new ArrayList<Record>();
+
+
         FirebaseRecyclerOptions<Record> options =
                 new FirebaseRecyclerOptions.Builder<Record>()
                         .setQuery(RecordsRef, Record.class)
@@ -97,7 +109,9 @@ public class HomeActivity extends AppCompatActivity {
                 new FirebaseRecyclerAdapter<Record, RecordViewHolder>(options) {
                     @Override
                     protected void onBindViewHolder(@androidx.annotation.NonNull RecordViewHolder holder, int position, @androidx.annotation.NonNull Record model) {
-                        holder.weight.setText(model.getTime());
+
+                        list.add(model);
+                        holder.weight.setText(model.getWeight());
                         holder.length.setText(model.getLength());
                         holder.date.setText(model.getDate());
                         holder.status.setText(model.getStatus());
@@ -120,44 +134,29 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
 
-        Query lastQuery = RecordsRef.orderByKey().limitToLast(1);
-        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                status1 = dataSnapshot.child("status").getValue().toString();
-                bmi1 = dataSnapshot.child("bmi").getValue().toString();
+        if(list.size()>1){
+        Record lastRecord = list.get(list.size() - 1);
+        Record preLastRecord = list.get(list.size() - 2);
+        status1 = lastRecord.getStatus();
+        bmi1 = lastRecord.getBmi();
+        bmi2 = preLastRecord.getBmi();
 
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle possible errors.
-            }
-        });
-
-        Query lastQuery2 = RecordsRef.orderByKey().limitToLast(2);
-        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                status2 = dataSnapshot.child("status").getValue().toString();
-                bmi2 = dataSnapshot.child("bmi").getValue().toString();
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Handle possible errors.
-            }
-        });
-
-        if(!bmi2.isEmpty()){
         String status = CalculateBMI.calcCurrentStatus(status1,bmi1,bmi2);
-        currentStatus.setText(status1+" ( "+status+" )");}
-        else {
+        currentStatus.setText(status1+" ( "+status+" )");
+        }
+        else if(list.size() == 1){
+            Record lastRecord = list.get(0);
+            status1 = lastRecord.getStatus();
             currentStatus.setText(status1);
         }
 
+        //Toast.makeText(HomeActivity.this,status1,Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomeActivity.this,"bmi1= "+bmi1,Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomeActivity.this,"bmi2= "+bmi2,Toast.LENGTH_SHORT).show();
+
     }
+
+
 
 
 

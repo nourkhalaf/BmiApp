@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
      android:orientation="vertical"
     tools:context=".LoginActivity"
+    android:layoutDirection="ltr"
+
     >
     <TextView
         android:layout_width="match_parent"
@@ -43,7 +45,7 @@
         />
 
     <EditText
-        android:id="@+id/login_user_email"
+        android:id="@+id/login_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
@@ -51,7 +53,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="8dp"
-        android:hint="User email"
+        android:hint="User name"
         android:textSize="18sp"
         />
 

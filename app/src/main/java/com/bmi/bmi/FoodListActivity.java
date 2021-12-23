@@ -35,7 +35,7 @@ public class FoodListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_list);
-        FoodsRef = FirebaseDatabase.getInstance().getReference().child("Foods").child(UserPrevalent.email);
+        FoodsRef = FirebaseDatabase.getInstance().getReference().child("Foods").child(UserPrevalent.name);
 
         recyclerView = findViewById(R.id.food_list);
         recyclerView.setHasFixedSize(true);
@@ -85,7 +85,7 @@ public class FoodListActivity extends AppCompatActivity {
                     @Override
                     public FoodViewHolder onCreateViewHolder(@androidx.annotation.NonNull ViewGroup parent, int viewType)
                     {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_item, parent, false);
+                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.food_item_layout, parent, false);
                         FoodViewHolder holder = new FoodViewHolder(view);
                         return holder;
                     }
