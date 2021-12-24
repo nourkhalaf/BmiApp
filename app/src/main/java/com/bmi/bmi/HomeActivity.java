@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,9 +52,16 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records").child(UserPrevalent.name);
-
         currentStatus = findViewById(R.id.current_state);
+        String status = getIntent().getStringExtra("currentStatus");
+        if (!TextUtils.isEmpty(status))
+        {
+            currentStatus.setText(status);
+        }
+
+         RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records").child(UserPrevalent.name);
+
+
 
         addFoodBtn = findViewById(R.id.home_add_food_btn);
         addFoodBtn.setOnClickListener(new View.OnClickListener() {

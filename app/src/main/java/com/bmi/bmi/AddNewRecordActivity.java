@@ -15,8 +15,12 @@ import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +32,7 @@ public class AddNewRecordActivity extends AppCompatActivity {
     private EditText date, time;
     private Button saveBtn;
     private DatabaseReference RecordsRef;
-    private String randomKey, saveCurrentDate, saveCurrentTime;
+    private String randomKey, saveCurrentDate, saveCurrentTime, previousBmi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,23 @@ public class AddNewRecordActivity extends AppCompatActivity {
 
             Calendar calendar = Calendar.getInstance();
 
+            Query lastQuery = RecordsRef.child(UserPrevalent.name).orderByKey().limitToLast(1);
+            lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    previousBmi = dataSnapshot.child("bmi").getValue().toString();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    // Handle possible errors.
+                }
+            });
+
+            String currentStatus= CalculateBMI.calcCurrentStatus(bmiStatus,String.valueOf(bmi),previousBmi);
+            Toast.makeText(AddNewRecordActivity.this,currentStatus,Toast.LENGTH_SHORT).show();
+
+
             SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
             saveCurrentDate = currentDate.format(calendar.getTime());
 
@@ -100,9 +121,11 @@ public class AddNewRecordActivity extends AppCompatActivity {
                             {
                                 Toast.makeText(AddNewRecordActivity.this, getString(R.string.toast_add_record),Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent(AddNewRecordActivity.this,HomeActivity.class);
-                                startActivity(intent);
-                                finish();
+//                                Intent intent = new Intent(AddNewRecordActivity.this,HomeActivity.class);
+//
+//                                intent.putExtra("currentStatus",currentStatus);
+//                                startActivity(intent);
+//                                finish();
 
 
                             }
