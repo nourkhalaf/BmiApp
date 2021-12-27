@@ -34,6 +34,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,6 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     private Button addFoodBtn, addRecordBtn, viewFoodBtn;
     private TextView currentStatus;
+    List<Record> records;
 
     private String status1="", bmi1="", bmi2="";
 
@@ -59,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
             currentStatus.setText(status);
         }
 
-         RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records").child(UserPrevalent.name);
+        RecordsRef = FirebaseDatabase.getInstance().getReference().child("Records").child(UserPrevalent.name);
 
 
 
@@ -105,7 +108,7 @@ public class HomeActivity extends AppCompatActivity {
     {
         super.onStart();
 
-        final ArrayList<Record> list = new ArrayList<Record>();
+        records = new ArrayList<>();
 
 
         FirebaseRecyclerOptions<Record> options =
@@ -118,11 +121,14 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     protected void onBindViewHolder(@androidx.annotation.NonNull RecordViewHolder holder, int position, @androidx.annotation.NonNull Record model) {
 
-                        list.add(model);
                         holder.weight.setText(model.getWeight());
                         holder.length.setText(model.getLength());
                         holder.date.setText(model.getDate());
                         holder.status.setText(model.getStatus());
+
+                        records.add(new Record(model.getBmi()));
+
+
 
 
                     }
@@ -142,18 +148,19 @@ public class HomeActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
 
-        if(list.size()>1){
-        Record lastRecord = list.get(list.size() - 1);
-        Record preLastRecord = list.get(list.size() - 2);
-        status1 = lastRecord.getStatus();
-        bmi1 = lastRecord.getBmi();
-        bmi2 = preLastRecord.getBmi();
+        if(records.size()>1){
+            Collections.reverse(records);
+            Record lastRecord = records.get(0);
+            Record preLastRecord = records.get(1);
+            status1 = lastRecord.getStatus();
+            bmi1 = lastRecord.getBmi();
+            bmi2 = preLastRecord.getBmi();
 
         String status = CalculateBMI.calcCurrentStatus(status1,bmi1,bmi2);
         currentStatus.setText(status1+" ( "+status+" )");
         }
-        else if(list.size() == 1){
-            Record lastRecord = list.get(0);
+        else if(records.size() == 1){
+            Record lastRecord = records.get(0);
             status1 = lastRecord.getStatus();
             currentStatus.setText(status1);
         }

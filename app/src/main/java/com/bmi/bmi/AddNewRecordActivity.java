@@ -1,6 +1,7 @@
 package com.bmi.bmi;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import com.bmi.bmi.Prevalent.UserPrevalent;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AddNewRecordActivity extends AppCompatActivity {
 
@@ -32,7 +35,7 @@ public class AddNewRecordActivity extends AppCompatActivity {
     private EditText date, time;
     private Button saveBtn;
     private DatabaseReference RecordsRef;
-    private String randomKey, saveCurrentDate, saveCurrentTime, previousBmi;
+    private String randomKey, saveCurrentDate, saveCurrentTime, previousBmi="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +54,33 @@ public class AddNewRecordActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RecordsRef.child(UserPrevalent.name).orderByKey().limitToLast(1).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        previousBmi = snapshot.child("bmi").getValue().toString();
+
+                        Toast.makeText(AddNewRecordActivity.this,previousBmi, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+
+                });
+
                 saveData();
+
+
             }
         });
 
     }
 
     private void saveData() {
+
+
         String recordDate = date.getText().toString();
         String recordTime = time.getText().toString();
 
@@ -78,21 +101,12 @@ public class AddNewRecordActivity extends AppCompatActivity {
 
             Calendar calendar = Calendar.getInstance();
 
-            Query lastQuery = RecordsRef.child(UserPrevalent.name).orderByKey().limitToLast(1);
-            lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    previousBmi = dataSnapshot.child("bmi").getValue().toString();
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Handle possible errors.
-                }
-            });
+            Toast.makeText(AddNewRecordActivity.this,"1 = "+bmiStatus,Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddNewRecordActivity.this,"2 = "+String.valueOf(bmi),Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddNewRecordActivity.this,"3 = "+previousBmi,Toast.LENGTH_SHORT).show();
 
-            String currentStatus= CalculateBMI.calcCurrentStatus(bmiStatus,String.valueOf(bmi),previousBmi);
-            Toast.makeText(AddNewRecordActivity.this,currentStatus,Toast.LENGTH_SHORT).show();
+           // String currentStatus = CalculateBMI.calcCurrentStatus(bmiStatus,String.valueOf(bmi),previousBmi);
 
 
             SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");

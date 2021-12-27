@@ -3,7 +3,8 @@ package com.bmi.bmi.Model;
 public class Record {
     public String weight, length, status, date, time, bmi;
 
-    public Record() {
+    public Record(String bmi) {
+        this.bmi = bmi;
     }
 
     public String getBmi() {
