@@ -3,10 +3,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
 
-    <string name="devices_screen">Device Protector</string>
-    <string name="mobile_skin">Mobile Skins</string>
-    <string name="mobile_screens">Mobile Screen Protector</string>
-    <string name="wood_designs">Wood Designs</string>
+     
     <string name="login_admin_name">Admin name</string>
     <string name="login_password">Password</string>
     <string name="login_remember_me">remember me</string>
@@ -16,12 +13,7 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="alert_delete_title">Sure you want to delete?</string>
-    <string name="toast_delete">deleted successfully!</string>
-    <string name="toast_brand_logo">Select Brand Logo!</string>
-    <string name="toast_brand_name">Enter Brand name!</string>
-    <string name="loading_add_brand">Add New Brand</string>
-    <string name="loading_add_brand_message">Dear Admin, please wait while we are adding the new brand</string>
-    <string name="toast_brand_added">Brand is added successfully!</string>
+     
     <string name="toast_add_name">Enter your name!</string>
     <string name="toast_add_email">Enter your email!</string>
     <string name="toast_add_password">Enter your password!</string>
